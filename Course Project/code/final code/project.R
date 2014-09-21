@@ -86,12 +86,11 @@ myTraining <- trainingV3
 
 clean1 <- colnames(myTraining)
 clean2 <- colnames(myTraining[, -58]) #already with classe column removed
-myTesting <- myTesting[clean]
+myTesting <- myTesting[clean1]
 testing <- testing[clean2]
 
 #To check the new Nº of observations
 dim(myTesting)
-
 
 #To check the new Nº of observations
 dim(testing)

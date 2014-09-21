@@ -64,57 +64,68 @@ In order to reproduce the same results, you need a certain set of packages, as w
 *Note:To install, for instance, the caret package in R, run this command: install.packages("caret")
 
 The following Libraries were used for this project, which you should install - if not done yet - and load on your working environment.
-
+```{r}
 library(caret)
 library(rpart)
 library(rpart.plot)
 library(RColorBrewer)
 library(rattle)
 library(randomForest)
+```
 
 Finally, load the same seed with the following line of code:
-
+```{r}
 set.seed(12345)
-
+```
 
 ## Getting the data
 
 The training data set can be found on the following URL:
 
+```{r}
 trainUrl <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+```
 
 The testing data set can be found on the following URL:
+```{r}
 testUrl <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+```
 
 Procedure 1)
 Procedure 1) assumes that you only want to store the data files in memory.
 
+Load data to memory solely
+```{r}
 training <- read.csv(url(trainUrl), na.strings=c("NA","#DIV/0!",""))
+testing <- read.csv(url(testUrl), na.strings=c("NA","#DIV/0!",""))
+```
 
 Procedure 2)
 Procedure 2) assumes that you want to store the data files in memory and on disk. (Thus, it involves downloading data directly to your hard drive.)
 
 You can use following function to download the data:
 ```{r}
-getDataFiles <- function(filesDirectory = "./") { 
-        if (!file.exists(filesDirectory)) {
-	   dir.create(filesDirectory)
-           }
-        trainFile <- "train.csv"
-        testFile <- "test.csv"
-	trainFilePath <- paste(filesDirectory, trainFile, sep = "/")
-        testFilePath <- paste(filesDirectory, testFile, sep = "/")
-        download.file(trainUrl, destfile = trainFilePath, method="curl")
-        download.file(testUrl, destfile = testFilePath, method="curl")
-        training <- read.csv(trainFilePath, na.strings=c("NA","#DIV/0!",""))
-        testing <- read.csv(testFilePath, na.strings=c("NA","#DIV/0!",""))
-}
+#getDataFiles <- function(filesDirectory = "./") { 
+#        if (!file.exists(filesDirectory)) {
+#	   dir.create(filesDirectory)
+#           }
+#        testUrl <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+#        trainUrl <- "http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+#        trainFile <- "train.csv"
+#        testFile <- "test.csv"
+#	trainFilePath <- paste(filesDirectory, trainFile, sep = "/")
+#        testFilePath <- paste(filesDirectory, testFile, sep = "/")
+#        download.file(trainUrl, destfile = trainFilePath, method="curl")
+#        download.file(testUrl, destfile = testFilePath, method="curl")
+#        training <- read.csv(trainFilePath, na.strings=c("NA","#DIV/0!",""))
+#        testing <- read.csv(testFilePath, na.strings=c("NA","#DIV/0!",""))
+#}
 ```
 
 
 Run the function, for example, as follows:
 ```{r}
-getDataFiles("/data")
+#getDataFiles("/data")
 ```
 
 Note that you can simply run the function without passing any argument, which means the file will be downloaded to your current working directory.
@@ -204,7 +215,7 @@ Now let us do the exact same 3 transformations but for our myTesting and testing
 ```{r}
 clean1 <- colnames(myTraining)
 clean2 <- colnames(myTraining[, -58]) #already with classe column removed
-myTesting <- myTesting[clean]
+myTesting <- myTesting[clean1]
 testing <- testing[clean2]
 
 #To check the new N?? of observations
