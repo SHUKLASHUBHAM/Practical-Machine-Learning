@@ -31,7 +31,18 @@ qplot(Petal.Width, Sepal.Width, colour=Species, data=training)
 
 #Using caret package to start testing ML predictions
 library(caret)
+set.seed(12345)
 modFit <- train(Species ~ ., method="rpart", data=training)
+
+#Generalized Linear Model
+set.seed(12345)
+modFit2 <- train(Species ~ ., method="glm", data=training)
+
+#Random Forests
+set.seed(12345)
+modFit3 <- train(Species ~ ., method="rf", data=training, prox=TRUE)
+
+
 print(modFit$finalModel)
 
 #plot tree
