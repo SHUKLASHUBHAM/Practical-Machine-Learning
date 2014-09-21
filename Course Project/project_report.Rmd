@@ -12,15 +12,7 @@ Developer: Diogo Aurelio
 
 GitHub repo: https://github.com/diogoaurelio/Practical-Machine-Learning/tree/master/Course%20Project
 
-RPubs:
-
-
-## Agenda
-
-1. Background
-2. Code for plots
-3. Guidelines to reproduce locally
-4. For more information
+RPubs: http://rpubs.com/dpaurelio/29426
 
 
 
