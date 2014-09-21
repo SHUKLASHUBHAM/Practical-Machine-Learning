@@ -84,48 +84,21 @@ myTraining <- trainingV3
 
 ##Now let us do the exact same 3 transformations but for our myTesting and testing data sets: 
 
-#Removing NZV:
-myTesting <- myTesting[!myNZVvars]
-testing <- testing[!myNZVvars]
+clean1 <- colnames(myTraining)
+clean2 <- colnames(myTraining[, -58]) #already with classe column removed
+myTesting <- myTesting[clean]
+testing <- testing[clean2]
 
-#Removing First Column - ID
-myTesting <- myTesting[c(-1)]
-testing <- testing[c(-1)]
-
-#Cleaning NAs:
-
-testingV3 <- myTesting
-for(i in 1:length(myTesting)) { #for every column in the "improved" testing dataset
-        if( sum( is.na( myTesting[, i] ) ) /nrow(myTesting) >= .6 ) { #if nº NAs > 60% of total observations
-		for(j in 1:length(testingV3)) {
-			if( length( grep(names(myTesting[i]), names(testingV3)[j]) ) ==1)  { #if the columns are the same:
-				testingV3 <- testingV3[ , -j] #Remove that column
-			}	
-		} 
-	}
-}
 #To check the new Nº of observations
-dim(testingV3)
-#Seting back to our set:
-myTesting <- testingV3
+dim(myTesting)
 
-testingV3 <- testing
-for(i in 1:length(testing)) { #for every column in the "improved" testing dataset
-        if( sum( is.na( testing[, i] ) ) /nrow(testing) >= .6 ) { #if nº NAs > 60% of total observations
-        	for(j in 1:length(testingV3)) {
-			if( length( grep(names(testing[i]), names(testingV3)[j]) ) ==1)  { #if the columns are the same:
-				testingV3 <- testingV3[ , -j] #Remove that column
-			}	
-		} 
-	}
-}
+
 #To check the new Nº of observations
-dim(testingV3)
-#Seting back to our set:
-testing <- testingV3
+dim(testing)
 
-#Removing last column - problem_id - which is not equal to training sets
-testing <- testing[-length(testing)]
+#Note: The last column - problem_id - which is not equal to training sets, was also "automagically" removed
+#No need for this code:
+#testing <- testing[-length(testing)]
 
 #In order to ensure proper functioning of Decision Trees and especially RandomForest 
 #Algorithm with the Test data set (data set provided), we need to coerce the data 
